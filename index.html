@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Animation</title>
+    <style>
+      @font-face {
+        font-family: "Ranchers";
+        src: url("font/Ranchers-Regular.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      body {
+        font-family: "Ranchers", sans-serif;
+        background-color: #fff;
+        overflow-x: hidden;
+        margin: 0;
+      }
+
+      .main {
+        position: relative;
+      }
+
+      .spacer {
+        height: 100vh;
+      }
+
+      #title {
+        font-size: 20rem;
+        text-align: center;
+        transform-style: preserve-3d;
+      }
+
+      #title span {
+        display: inline-block;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+      }
+
+      .img-container {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+      }
+
+      .img-container img {
+        width: 100%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div id="title">
+        <span>H</span>
+        <span>E</span>
+        <span>L</span>
+        <span>L</span>
+        <span>O</span>
+      </div>
+      <div class="img-container">
+        <img src="img/hello.png" alt="hello" />
+      </div>
+      <div class="spacer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".main",
+          start: "top top", // Top part of div
+          end: "+=1000",
+          pin: true, // Pins div
+          scrub: true,
+        },
+      });
+
+      tl.to("#title span", {
+        rotateY: 360,
+        duration: 2,
+        ease: "power1.out",
+        stagger: 0.6, 
+      });
+
+      tl.to(
+        ".img-container",
+        {
+          top: "50%",
+          ease: "power1.out",
+        },
+        0
+      );
+      
+    </script>
+  </body>
+</html>
